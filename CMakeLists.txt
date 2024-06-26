@@ -3,9 +3,6 @@
 
 cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
 
-project("hallo")
-
-
 function(read_entry ITEM FIELD PREFIX VAR_OUT)
     string(JSON TYPE_VALUE TYPE ${ITEM} ${FIELD})
     if (${TYPE_VALUE} MATCHES "^STRING$")
