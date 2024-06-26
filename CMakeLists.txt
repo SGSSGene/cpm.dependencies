@@ -72,5 +72,3 @@ function(CPMAddDependencies file)
         endif()
     endforeach()
 endfunction()
-
-CPMAddDependencies(test.json)
