@@ -69,7 +69,7 @@ Only the `name` field is mandatory.
         "source_dir": "",
         "find_package_arguments": "",
         "no_cache": false,
-        "system": false,
+        "system": true,
         "git_shallow": false,
         "exclude_from_all": "",
         "source_subdir": "",

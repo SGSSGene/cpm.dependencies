@@ -55,54 +55,58 @@ macro(read_packages_section FILE_AS_STRING)
         string(JSON ITEM GET ${FILE_AS_STRING} ${IDX})
         if (${TYPE_VALUE} MATCHES "^OBJECT$")
             #!TODO Many options missing
-            read_entry(${ITEM} NAME "" NAME)
-            if ("${NAME}" EQUAL "")
+            read_entry(${ITEM} NAME "" DEP_NAME)
+            if ("${DEP_NAME}" EQUAL "")
                 message(FATAL_ERROR "CPM dependency entry must hav a \"NAME\" or \"name\" field")
             endif()
-            read_entry(${ITEM} FORCE "FORCE" FORCE)
-            read_entry(${ITEM} VERSION "VERSION" VERSION)
-            read_entry(${ITEM} GIT_TAG "GIT_TAG" GIT_TAG)
-            read_entry(${ITEM} DOWNLOAD_ONLY "DOWNLOAD_ONLY" DOWNLOAD_ONLY)
-            read_entry(${ITEM} PATCHES "PATCHES" PATCHES)
-            read_entry(${ITEM} GITHUB_REPOSITORY "GITHUB_REPOSITORY" GITHUB_REPOSITORY)
-            read_entry(${ITEM} BITBUCKET_REPOSITORY "BITBUCKET_REPOSITORY" BITBUCKET_REPOSITORY)
-            read_entry(${ITEM} GITLAB_REPOSITORY "GITLAB_REPOSITORY" GITLAB_REPOSITORY)
-            read_entry(${ITEM} GIT_REPOSITORY "GIT_REPOSITORY" GIT_REPOSITORY)
-            read_entry(${ITEM} SOURCE_DIR "SOURCE_DIR" SOURCE_DIR)
-            read_entry(${ITEM} FIND_PACKAGE_ARGUMENTS "FIND_PACKAGE_ARGUMENTS" FIND_PACKAGE_ARGUMENTS)
-            read_entry(${ITEM} NO_CACHE "NO_CACHE" NO_CACHE)
-            read_entry(${ITEM} SYSTEM "SYSTEM" SYSTEM)
-            read_entry(${ITEM} GIT_SHALLOW "GIT_SHALLOW" GIT_SHALLOW)
-            read_entry(${ITEM} EXCLUDE_FROM_ALL "EXCLUDE_FROM_ALL" EXCLUDE_FROM_ALL)
-            read_entry(${ITEM} SOURCE_SUBDIR "SOURCE_SUBDIR" SOURCE_SUBDIR)
-            read_entry(${ITEM} CUSTOM_CACHE_KEY "CUSTOM_CACHE_KEY" CUSTOM_CACHE_KEY)
-            read_entry(${ITEM} URL "URL" URL)
-            read_entry(${ITEM} OPTIONS "OPTIONS" OPTIONS)
-            read_entry(${ITEM} DOWNLOAD_COMMAND "DOWNLOAD_COMMAND" DOWNLOAD_COMMAND)
-            CPMDeclarePackage(${NAME}
-                "NAME ${NAME}"
-                "${FORCE}"
-                "${VERSION}"
-                "${GIT_TAG}"
-                "${DOWNLOAD_ONLY}"
-                "${PATCHES}"
-                "${GITHUB_REPOSITORY}"
-                "${BITBUCKET_REPOSITORY}"
-                "${GITLAB_REPOSITORY}"
-                "${GIT_REPOSITORY}"
-                "${SOURCE_DIR}"
-                "${FIND_PACKAGE_ARGUMENTS}"
-                "${NO_CACHE}"
-                "${SYSTEM}"
-                "${GIT_SHALLOW}"
-                "${EXCLUDE_FROM_ALL}"
-                "${SOURCE_SUBDIR}"
-                "${CUSTOM_CACHE_KEY}"
-                "${URL}"
-                "${OPTIONS}"
-                "${DOWNLOAD_COMMAND}"
+            read_entry(${ITEM} FORCE "FORCE" DEP_FORCE)
+            read_entry(${ITEM} VERSION "VERSION" DEP_VERSION)
+            read_entry(${ITEM} GIT_TAG "GIT_TAG" DEP_GIT_TAG)
+            read_entry(${ITEM} DOWNLOAD_ONLY "DOWNLOAD_ONLY" DEP_DOWNLOAD_ONLY)
+            read_entry(${ITEM} PATCHES "PATCHES" DEP_PATCHES)
+            read_entry(${ITEM} GITHUB_REPOSITORY "GITHUB_REPOSITORY" DEP_GITHUB_REPOSITORY)
+            read_entry(${ITEM} BITBUCKET_REPOSITORY "BITBUCKET_REPOSITORY" DEP_BITBUCKET_REPOSITORY)
+            read_entry(${ITEM} GITLAB_REPOSITORY "GITLAB_REPOSITORY" DEP_GITLAB_REPOSITORY)
+            read_entry(${ITEM} GIT_REPOSITORY "GIT_REPOSITORY" DEP_GIT_REPOSITORY)
+            read_entry(${ITEM} SOURCE_DIR "SOURCE_DIR" DEP_SOURCE_DIR)
+            read_entry(${ITEM} FIND_PACKAGE_ARGUMENTS "FIND_PACKAGE_ARGUMENTS" DEP_FIND_PACKAGE_ARGUMENTS)
+            read_entry(${ITEM} NO_CACHE "NO_CACHE" DEP_NO_CACHE)
+            read_entry(${ITEM} SYSTEM "SYSTEM" DEP_SYSTEM)
+            read_entry(${ITEM} GIT_SHALLOW "GIT_SHALLOW" DEP_GIT_SHALLOW)
+            read_entry(${ITEM} EXCLUDE_FROM_ALL "EXCLUDE_FROM_ALL" DEP_EXCLUDE_FROM_ALL)
+            read_entry(${ITEM} SOURCE_SUBDIR "SOURCE_SUBDIR" DEP_SOURCE_SUBDIR)
+            read_entry(${ITEM} CUSTOM_CACHE_KEY "CUSTOM_CACHE_KEY" DEP_CUSTOM_CACHE_KEY)
+            read_entry(${ITEM} URL "URL" DEP_URL)
+            read_entry(${ITEM} OPTIONS "OPTIONS" DEP_OPTIONS)
+            read_entry(${ITEM} DOWNLOAD_COMMAND "DOWNLOAD_COMMAND" DEP_DOWNLOAD_COMMAND)
+            if (NOT DEP_SYSTEM)
+                set(DEP_SYSTEM "SYSTEM" "YES")
+            endif()
+            CPMDeclarePackage(${DEP_NAME}
+                "NAME ${DEP_NAME}"
+                "${DEP_FORCE}"
+                "${DEP_VERSION}"
+                "${DEP_GIT_TAG}"
+                "${DEP_DOWNLOAD_ONLY}"
+                "${DEP_PATCHES}"
+                "${DEP_GITHUB_REPOSITORY}"
+                "${DEP_BITBUCKET_REPOSITORY}"
+                "${DEP_GITLAB_REPOSITORY}"
+                "${DEP_GIT_REPOSITORY}"
+                "${DEP_SOURCE_DIR}"
+                "${DEP_FIND_PACKAGE_ARGUMENTS}"
+                "${DEP_NO_CACHE}"
+                "${DEP_SYSTEM}"
+                "${DEP_GIT_SHALLOW}"
+                "${DEP_EXCLUDE_FROM_ALL}"
+                "${DEP_SOURCE_SUBDIR}"
+                "${DEP_CUSTOM_CACHE_KEY}"
+                "${DEP_URL}"
+                "${DEP_OPTIONS}"
+                "${DEP_DOWNLOAD_COMMAND}"
             )
-            list(APPEND PackageNames ${NAME})
+
+            list(APPEND PackageNames ${DEP_NAME})
         else()
             message(FATAL_ERROR "Unexpected JSON type ${TYPE_VALUE} at position ${IDX}")
         endif()
@@ -119,7 +123,6 @@ macro(parseDependencyFile file)
         message(FATAL_ERROR "field \"format_version\" is missing. Recommended to set to \"format_version\": \"0.0.1\"")
     endif()
 
-
     if ("${FORMAT_VERSION}" MATCHES "1")
         # Read package section
         string(JSON ITEM ERROR_VARIABLE JSON_ERROR GET ${FILE_AS_STRING} "packages")
@@ -134,6 +137,15 @@ macro(parseDependencyFile file)
             MATH(EXPR number_of_objects "${number_of_objects}-1")
             foreach (IDX RANGE ${number_of_objects})
                 string(JSON FILE GET ${ITEM} ${IDX})
+
+                cmake_path(IS_RELATIVE FILE is_relative)
+                if (${is_relative})
+                    set(path ${file})
+                    cmake_path(HAS_PARENT_PATH path has_parent)
+
+                    cmake_path(GET path PARENT_PATH parent_path)
+                    set(FILE "${parent_path}/${FILE}")
+                endif()
                 parseDependencyFile(${FILE})
             endforeach()
         endif()
@@ -145,6 +157,11 @@ endmacro()
 macro(CPMLoadDependenciesFile file)
     set(PackageNames)
     parseDependencyFile(${file})
+    message("CPM.dependencies:")
+    foreach (Package ${PackageNames})
+        message("- ${Package}")
+    endforeach()
+
     foreach (Package ${PackageNames})
         CPMGetPackage(${Package})
     endforeach()

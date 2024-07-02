@@ -7,8 +7,7 @@ project(demo LANGUAGES CXX DESCRIPTION "demonstration of CPM.dependencies")
 
 include(cmake/CPM.cmake)
 CPMAddPackage("gh:SGSSGene/cpm.dependencies@0.0.1")
-
-CPMLoadDependenciesFile("cpm.dependencies")
+CPMLoadDependenciesFile("${CMAKE_SOURCE_DIR}/cpm.dependencies")
 
 add_executable(example example.cpp)
 target_link_libraries(example PRIVATE nlohmann_json::nlohmann_json fmt::fmt cxxopts)
