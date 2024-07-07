@@ -120,7 +120,7 @@ macro(parseDependencyFile file)
     # Read format_version
     string(JSON FORMAT_VERSION ERROR_VARIABLE JSON_ERROR GET ${FILE_AS_STRING} "format_version")
     if (NOT ${JSON_ERROR} MATCHES "^NOTFOUND$")
-        message(FATAL_ERROR "field \"format_version\" is missing. Recommended to set to \"format_version\": \"0.0.1\"")
+        message(FATAL_ERROR "field \"format_version\" is missing. Recommended to set to \"format_version\": \"1\"")
     endif()
 
     if ("${FORMAT_VERSION}" MATCHES "1")
