@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.25)
 project(demo LANGUAGES CXX DESCRIPTION "demonstration of CPM.dependencies")
 
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:SGSSGene/cpm.dependencies@0.0.1")
+CPMAddPackage("gh:SGSSGene/cpm.dependencies@0.0.3")
 CPMLoadDependenciesFile("${CMAKE_SOURCE_DIR}/cpm.dependencies")
 
 add_executable(example example.cpp)
