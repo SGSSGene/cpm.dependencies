@@ -7,13 +7,15 @@
             "github_repository": "nlohmann/json",
             "options": [
                 "json_buildtests off"
-            ]
+            ],
+            "cpmaddpackage_command": "cpmaddpackage"
         },
         {
             "name": "fmt",
             "version": "10.2.1",
             "git_tag": "10.2.1",
-            "github_repository": "fmtlib/fmt"
+            "github_repository": "fmtlib/fmt",
+            "cpmaddpackage_command": "cpmaddpackage"
         }
     ],
     "dependency_files": [

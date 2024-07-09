@@ -76,7 +76,8 @@ Only the `name` field is mandatory.
         "custom_cache_key": "",
         "url": [],
         "options": [],
-        "download_command": []
+        "download_command": [],
+        "cpmaddpackage_command": "cpmaddpackage"
     }
 ```
 
