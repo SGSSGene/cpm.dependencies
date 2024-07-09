@@ -83,6 +83,10 @@ macro(read_packages_section FILE_AS_STRING)
             if (NOT DEP_SYSTEM)
                 set(DEP_SYSTEM "SYSTEM" "YES")
             endif()
+            if (NOT DEP_EXCLUDE_FROM_ALL)
+                set(DEP_EXCLUDE_FROM_ALL "EXCLUDE_FROM_ALL" "YES")
+            endif()
+
             CPMDeclarePackage(${DEP_NAME}
                 "NAME ${DEP_NAME}"
                 "${DEP_FORCE}"

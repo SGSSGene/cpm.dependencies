@@ -71,7 +71,7 @@ Only the `name` field is mandatory.
         "no_cache": false,
         "system": true,
         "git_shallow": false,
-        "exclude_from_all": "",
+        "exclude_from_all": true,
         "source_subdir": "",
         "custom_cache_key": "",
         "url": [],
