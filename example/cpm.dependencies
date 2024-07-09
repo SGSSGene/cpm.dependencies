@@ -15,7 +15,8 @@
             "version": "10.2.1",
             "git_tag": "10.2.1",
             "github_repository": "fmtlib/fmt",
-            "cpmaddpackage_command": "cpmaddpackage"
+            "cpmaddpackage_command": "cpmaddpackage",
+            "commands": "message('hallo welt')"
         }
     ],
     "dependency_files": [
