@@ -78,7 +78,7 @@ Only the `name` field is mandatory.
         "options": [],
         "download_command": [],
         "cpmaddpackage_command": "cpmaddpackage",
-        "commands": []
+        "cmake_commands": []
     }
 ```
 

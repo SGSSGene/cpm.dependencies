@@ -9,7 +9,8 @@
                 "CXXOPTS_BUILD_EXAMPLES NO",
                 "CXXOPTS_BUILD_TESTS NO",
                 "CXXOPTS_ENABLE_INSTALL YES"
-            ]
+            ],
+            "cmake_commands": "message(\"Hello cxxopts\")"
         }
     ]
 }
