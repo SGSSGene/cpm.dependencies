@@ -179,7 +179,7 @@ function(parseDependencyFile file)
             endforeach()
         endif()
     else()
-        message(FATAL_ERROR "unkonwn \"format_version\" ${FORMAT_VERSION}")
+        message(FATAL_ERROR "unknown \"format_version\" ${FORMAT_VERSION}")
     endif()
 endfunction()
 
