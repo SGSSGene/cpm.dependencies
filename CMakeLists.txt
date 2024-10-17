@@ -197,7 +197,6 @@ macro(CPMLoadDependenciesFile file)
         cmake_language(EVAL CODE CPMDeclarePackage(${decl}))
     endforeach()
 
-    set(BIT7Z_CUSTOM_7ZIP_PATH "test")
     foreach (DEP_NAME ${PackageNames})
         if (NOT DEP_${DEP_NAME}_CPMADDPACKAGE_COMMAND)
             CPMGetPackage("${DEP_NAME}")
