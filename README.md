@@ -82,3 +82,14 @@ Only the `name` field is mandatory.
     }
 ```
 
+## Helper Variable
+Field `git_tag` supports the variable `{VERSION}` which will be replaced by the content of the `version` field.
+This allows to write more sophisticated tags like:
+```
+    {
+        "name": "pcre2",
+        "version": "10.43",
+        "git_tag": "pcre2-{VERSION}"
+        ...
+    }
+```
