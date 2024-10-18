@@ -13,10 +13,16 @@
         {
             "name": "fmt",
             "version": "10.2.1",
-            "git_tag": "10.2.1",
+            "git_tag": "{VERSION}",
             "github_repository": "fmtlib/fmt",
             "cpmaddpackage_command": "cpmaddpackage",
             "cmake_commands": "message(\"hello fmt\")"
+        },
+        {
+            "if": "EXAMPLE_ENABLE_TESTING",
+            "name": "Catch",
+            "version": "3.6.0",
+            "github_repository": "catchorg/Catch",
         }
     ],
     "dependency_files": [

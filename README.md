@@ -56,6 +56,7 @@ Each package objects has the following layout, all keys must be complete lower-c
 Only the `name` field is mandatory.
 ```
     {
+        "if": "", # some condition with cmake variables
         "name": "name, mandetory",
         "force": false,
         "version": "",
