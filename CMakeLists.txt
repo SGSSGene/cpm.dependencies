@@ -66,6 +66,23 @@ function(read_packages_section FILE_AS_STRING)
         string(JSON ITEM GET ${FILE_AS_STRING} ${IDX})
         if (${TYPE_VALUE} MATCHES "^OBJECT$")
             #!TODO Many options missing
+            read_entry(${ITEM} IF "" DEP_IF NO NO)
+            if ("${DEP_IF}" MATCHES ".")
+                set(TEST_IF "
+                    if (${DEP_IF})
+                        set(MUST_LOAD_THIS_PACKAGE ON)
+                        message(\"its true\")
+                    else()
+                        set(MUST_LOAD_THIS_PACKAGE OFF)
+                        message(\"its not true\")
+                    endif()"
+                )
+                cmake_language(EVAL CODE "${TEST_IF}")
+                if (NOT ${MUST_LOAD_THIS_PACKAGE})
+                    continue()
+                endif()
+            endif ()
+
             read_entry(${ITEM} NAME "" DEP_NAME NO NO)
             if ("${DEP_NAME}" EQUAL "")
                 message(FATAL_ERROR "CPM dependency entry must hav a \"NAME\" or \"name\" field")
@@ -93,6 +110,7 @@ function(read_packages_section FILE_AS_STRING)
             read_entry(${ITEM} DOWNLOAD_COMMAND "DOWNLOAD_COMMAND " DEP_DOWNLOAD_COMMAND YES NO)
             read_entry(${ITEM} CPMADDPACKAGE_COMMAND "" DEP_${DEP_NAME}_CPMADDPACKAGE_COMMAND NO NO)
             read_entry(${ITEM} CMAKE_COMMANDS "" DEP_${DEP_NAME}_CMAKE_COMMANDS NO YES)
+
             string(REPLACE "{VERSION}" "${DEP_RAW_VERSION}" DEP_GIT_TAG "${DEP_GIT_TAG}")
 
             if (NOT DEP_SYSTEM)
