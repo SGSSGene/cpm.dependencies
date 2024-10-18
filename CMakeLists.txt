@@ -71,10 +71,8 @@ function(read_packages_section FILE_AS_STRING)
                 set(TEST_IF "
                     if (${DEP_IF})
                         set(MUST_LOAD_THIS_PACKAGE ON)
-                        message(\"its true\")
                     else()
                         set(MUST_LOAD_THIS_PACKAGE OFF)
-                        message(\"its not true\")
                     endif()"
                 )
                 cmake_language(EVAL CODE "${TEST_IF}")
