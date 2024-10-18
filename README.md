@@ -15,7 +15,7 @@ Must use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake).
 
 ```cmake
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:SGSSGene/cpm.dependencies@0.0.7")
+CPMAddPackage("gh:SGSSGene/cpm.dependencies@1.0.0")
 
 # Loads and adds all packages from the JSON file
 CPMLoadDependenciesFile("cpm.dependencies")
@@ -39,7 +39,7 @@ An example layout:
         {
             "name": "fmt",
             "version": "10.2.1",
-            "git_tag": "10.2.1",
+            "git_tag": "{VERSION}",
             "github_repository": "fmtlib/fmt"
         }
     ],
