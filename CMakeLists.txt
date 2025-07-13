@@ -153,6 +153,13 @@ function(read_packages_section FILE_AS_STRING)
 endfunction()
 
 function(parseDependencyFile file)
+    # Add file to CMAKE_CONFIGURE_DEPENDS so changes trigger a rerun of cmake
+    set_property(
+        DIRECTORY
+        APPEND
+        PROPERTY CMAKE_CONFIGURE_DEPENDS
+        "${file}"
+    )
     file(READ ${file} FILE_AS_STRING)
 
     # Read format_version
@@ -205,11 +212,10 @@ endfunction()
 macro(CPMLoadDependenciesFile file)
     set(PackageNames)
     parseDependencyFile(${file})
-    message("CPM.dependencies:")
+    message(VERBOSE "CPM.dependencies:")
     foreach (DEP_NAME ${PackageNames})
-        message("- ${DEP_NAME}")
+        message(VERBOSE "- ${DEP_NAME}")
         string(REGEX REPLACE "[\n\r \t]+" " " decl "${${DEP_NAME}_declare_command}")
-#        message(${decl})
         cmake_language(EVAL CODE CPMDeclarePackage(${decl}))
     endforeach()
 
