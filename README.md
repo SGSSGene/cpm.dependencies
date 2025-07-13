@@ -15,7 +15,7 @@ Must use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake).
 
 ```cmake
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:SGSSGene/cpm.dependencies@1.0.0")
+CPMAddPackage("gh:SGSSGene/cpm.dependencies@1.0.1")
 
 # Loads and adds all packages from the JSON file
 CPMLoadDependenciesFile("cpm.dependencies")
