@@ -153,6 +153,13 @@ function(read_packages_section FILE_AS_STRING)
 endfunction()
 
 function(parseDependencyFile file)
+    # Add file to CMAKE_CONFIGURE_DEPENDS so changes trigger a rerun of cmake
+    set_property(
+        DIRECTORY
+        APPEND
+        PROPERTY CMAKE_CONFIGURE_DEPENDS
+        "${file}"
+    )
     file(READ ${file} FILE_AS_STRING)
 
     # Read format_version
