@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2024 Simon Gene Gottlieb
 # SPDX-License-Identifier: MIT
 
-cmake_minimum_required(VERSION 3.19 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
 
 function(read_entry ITEM FIELD PREFIX VAR_OUT WITH_QUOTES AS_LIST)
     set(RET_VALUE)
